@@ -7,7 +7,7 @@ function FindProxyForURL(url, host) {
 
     // Define websites that are blocked at certain times
     var timeBlockedWebsites = [
-        { host: "*google*", times: [{ start: 0, end: 1400 }, { start: 1800, end: 2400 }] }
+        { host: "www.google.com", times: [{ start: 0, end: 800 }, { start: 1800, end: 2400 }] }
         // Add more websites and time ranges to the list as needed
     ];
 
@@ -16,14 +16,14 @@ function FindProxyForURL(url, host) {
 
     // Check if the requested host (website) is in the list of always blocked websites
     if (alwaysBlockedWebsites.some(function (blockedHost) {
-        return host.toLowerCase().indexOf(blockedHost) !== -1;
+        return host.toLowerCase().endsWith(blockedHost);
     })) {
         return "PROXY block.proxy.server:8080";
     }
 
     // Check if the requested host (website) is in the list of time-blocked websites
     var timeBlockedWebsite = timeBlockedWebsites.find(function (item) {
-        return item.host.toLowerCase() === host.toLowerCase();
+        return host.toLowerCase().endsWith(item.host.toLowerCase());
     });
 
     if (timeBlockedWebsite) {
