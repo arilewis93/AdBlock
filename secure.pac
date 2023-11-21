@@ -25,7 +25,7 @@ function FindProxyForURL(url, host) {
         return host.toLowerCase().endsWith(blockedHost);
     })) {
         // Check if the current time is within the specified time range (6 PM to 8 AM)
-        if (currentTime >= 1800 || currentTime <= 800) {
+        if (currentTime >= 1400 || currentTime <= 800) {
             // Block the connection to the specified website during the specified time range
             return "PROXY block.proxy.server:8080";
         }
