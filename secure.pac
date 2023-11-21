@@ -1,9 +1,7 @@
 function FindProxyForURL(url, host) {
     // Define the time ranges during which websites are blocked
     var blockedWebsites = [
-        "youtube.com",
-        "facebook.com",
-        "twitter.com"
+        "youtube.com"
         // Add more websites to the list as needed
     ];
 
