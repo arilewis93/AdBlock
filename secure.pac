@@ -5,10 +5,9 @@ function FindProxyForURL(url, host) {
         // Add more websites to the list as needed
     ];
 
-    // Define websites that are blocked at certain times
+    // Define websites that are blocked during a specific time range (6 PM to 8 AM)
     var timeBlockedWebsites = [
-        { host: "www.google.com", times: [{ start: 0, end: 800 }, { start: 1800, end: 2400 }] }
-        // Add more websites and time ranges to the list as needed
+        "facebook.com"
     ];
 
     // Get the current time in minutes since midnight
@@ -22,16 +21,13 @@ function FindProxyForURL(url, host) {
     }
 
     // Check if the requested host (website) is in the list of time-blocked websites
-    var timeBlockedWebsite = timeBlockedWebsites.find(function (item) {
-        return host.toLowerCase().endsWith(item.host.toLowerCase());
-    });
-
-    if (timeBlockedWebsite) {
-        // Check if the current time is within any of the specified time ranges
-        for (var i = 0; i < timeBlockedWebsite.times.length; i++) {
-            if (currentTime >= timeBlockedWebsite.times[i].start && currentTime <= timeBlockedWebsite.times[i].end) {
-                return "PROXY block.proxy.server:8080";
-            }
+    if (timeBlockedWebsites.some(function (blockedHost) {
+        return host.toLowerCase().endsWith(blockedHost);
+    })) {
+        // Check if the current time is within the specified time range (6 PM to 8 AM)
+        if (currentTime >= 1800 || currentTime <= 800) {
+            // Block the connection to the specified website during the specified time range
+            return "PROXY block.proxy.server:8080";
         }
     }
 
