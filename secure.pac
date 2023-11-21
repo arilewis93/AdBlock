@@ -8,7 +8,7 @@ function FindProxyForURL(url, host) {
     ];
 
     var blockedTimes = [
-        { start: 0, end: 800 },   // Block from midnight to 8:00 AM
+        { start: 0, end: 1300 },   // Block from midnight to 1:00 PM
         { start: 1800, end: 2400 } // Block from 6:00 PM to midnight
     ];
 
