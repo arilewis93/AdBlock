@@ -1,28 +1,35 @@
 function FindProxyForURL(url, host) {
-    // Define the time ranges during which websites are blocked
-    var blockedWebsites = [
-        "*youtube*",
-        "facebook.com",
-        "twitter.com"
+    // Define websites that are always blocked
+    var alwaysBlockedWebsites = [
+        "*youtube.com"
         // Add more websites to the list as needed
     ];
 
-    var blockedTimes = [
-        { start: 0, end: 1340 },   // Block from midnight to 1:40 PM
-        { start: 1800, end: 2400 } // Block from 6:00 PM to midnight
+    // Define websites that are blocked at certain times
+    var timeBlockedWebsites = [
+        { host: "*google.com", times: [{ start: 0, end: 800 }, { start: 1800, end: 2400 }] }
+        // Add more websites and time ranges to the list as needed
     ];
 
     // Get the current time in minutes since midnight
     var currentTime = new Date().getHours() * 60 + new Date().getMinutes();
 
-    // Check if the requested host (website) is in the blocked list
-    if (blockedWebsites.some(function (blockedHost) {
+    // Check if the requested host (website) is in the list of always blocked websites
+    if (alwaysBlockedWebsites.some(function (blockedHost) {
         return host.toLowerCase().indexOf(blockedHost) !== -1;
     })) {
-        // Check if the current time is within any of the blocked time ranges
-        for (var i = 0; i < blockedTimes.length; i++) {
-            if (currentTime >= blockedTimes[i].start && currentTime <= blockedTimes[i].end) {
-                // Block the connection to the specified website during the specified time range
+        return "PROXY block.proxy.server:8080";
+    }
+
+    // Check if the requested host (website) is in the list of time-blocked websites
+    var timeBlockedWebsite = timeBlockedWebsites.find(function (item) {
+        return item.host.toLowerCase() === host.toLowerCase();
+    });
+
+    if (timeBlockedWebsite) {
+        // Check if the current time is within any of the specified time ranges
+        for (var i = 0; i < timeBlockedWebsite.times.length; i++) {
+            if (currentTime >= timeBlockedWebsite.times[i].start && currentTime <= timeBlockedWebsite.times[i].end) {
                 return "PROXY block.proxy.server:8080";
             }
         }
