@@ -1,7 +1,9 @@
 function FindProxyForURL(url, host) {
     // Define the time ranges during which websites are blocked
     var blockedWebsites = [
-        "youtube.com"
+        "youtube.com",
+        "facebook.com",
+        "twitter.com"
         // Add more websites to the list as needed
     ];
 
@@ -14,7 +16,9 @@ function FindProxyForURL(url, host) {
     var currentTime = new Date().getHours() * 60 + new Date().getMinutes();
 
     // Check if the requested host (website) is in the blocked list
-    if (blockedWebsites.indexOf(host.toLowerCase()) !== -1) {
+    if (blockedWebsites.some(function (blockedHost) {
+        return host.toLowerCase().indexOf(blockedHost) !== -1;
+    })) {
         // Check if the current time is within any of the blocked time ranges
         for (var i = 0; i < blockedTimes.length; i++) {
             if (currentTime >= blockedTimes[i].start && currentTime <= blockedTimes[i].end) {
