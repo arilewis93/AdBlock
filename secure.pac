@@ -1,14 +1,14 @@
 function FindProxyForURL(url, host) {
     // Define the time ranges during which websites are blocked
     var blockedWebsites = [
-        "youtube.com",
+        "*youtube.com",
         "facebook.com",
         "twitter.com"
         // Add more websites to the list as needed
     ];
 
     var blockedTimes = [
-        { start: 0, end: 1300 },   // Block from midnight to 1:00 PM
+        { start: 0, end: 1340 },   // Block from midnight to 1:40 PM
         { start: 1800, end: 2400 } // Block from 6:00 PM to midnight
     ];
 
