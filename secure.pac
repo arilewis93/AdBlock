@@ -7,7 +7,7 @@ function FindProxyForURL(url, host) {
 
     // Define websites that are blocked at certain times
     var timeBlockedWebsites = [
-        { host: "www.google.com", times: [{ start: 0, end: 800 }, { start: 1800, end: 2400 }] }
+        { host: "www.google.com", times: [{ start: 0, end: 1400 }, { start: 1800, end: 2400 }] }
         // Add more websites and time ranges to the list as needed
     ];
 
