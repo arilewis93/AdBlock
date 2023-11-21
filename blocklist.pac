@@ -2,6 +2,7 @@ function FindProxyForURL(url, host) {
     var blocked_urls = [
         "*.deloplen.com*",
         "*porn*",
+        "*youtube*",
         "*.torproject.org*",
         "*doubleclick.net*",
         "*.ads.samba.tv*",
